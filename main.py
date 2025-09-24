@@ -1,12 +1,14 @@
 # ============================================
-# 🌈 Streamlit NLP Phase-wise Model Comparison
+# 🌈 Streamlit NLP Phase-wise Model Comparison (NLTK Version)
 # ============================================
 
 import streamlit as st
 import pandas as pd
-import spacy
-#import en_core_web_sm  # <--- Import the SpaCy model explicitly
-from spacy.lang.en.stop_words import STOP_WORDS
+import nltk
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from nltk import pos_tag
 from textblob import TextBlob
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
@@ -16,36 +18,37 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
-from spacy.lang.en.stop_words import STOP_WORDS
 
-# Safe way to load SpaCy model on Streamlit Cloud
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    from spacy.cli import download
-    download("en_core_web_sm")  # Downloads model at runtime
-    nlp = spacy.load("en_core_web_sm")
+# ============================
+# NLTK Setup
+# ============================
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
 
-stop_words = STOP_WORDS
+stop_words = set(stopwords.words('english'))
+lemmatizer = WordNetLemmatizer()
+
 # ============================
 # Feature Extractors
 # ============================
 def lexical_preprocess(text):
-    doc = nlp(text.lower())
-    tokens = [token.lemma_ for token in doc if token.text not in stop_words and token.is_alpha]
+    tokens = word_tokenize(text.lower())
+    tokens = [lemmatizer.lemmatize(t) for t in tokens if t.isalpha() and t not in stop_words]
     return " ".join(tokens)
 
 def syntactic_features(text):
-    doc = nlp(text)
-    return " ".join([token.pos_ for token in doc])
+    tokens = word_tokenize(text)
+    pos_tags = pos_tag(tokens)
+    return " ".join([tag for word, tag in pos_tags])
 
 def semantic_features(text):
     blob = TextBlob(text)
     return [blob.sentiment.polarity, blob.sentiment.subjectivity]
 
 def discourse_features(text):
-    doc = nlp(text)
-    sents = [sent.text.strip() for sent in doc.sents]
+    sents = sent_tokenize(text)
     return f"{len(sents)} {' '.join([s.split()[0] for s in sents if s])}"
 
 pragmatic_words = ["must", "should", "might", "could", "will", "?", "!"]
