@@ -5,6 +5,7 @@
 import streamlit as st
 import pandas as pd
 import spacy
+#import en_core_web_sm  # <--- Import the SpaCy model explicitly
 from spacy.lang.en.stop_words import STOP_WORDS
 from textblob import TextBlob
 from sklearn.model_selection import train_test_split
@@ -15,20 +16,17 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
+from spacy.lang.en.stop_words import STOP_WORDS
 
+# Safe way to load SpaCy model on Streamlit Cloud
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
-    # Download if not available
     from spacy.cli import download
-    download("en_core_web_sm")
+    download("en_core_web_sm")  # Downloads model at runtime
     nlp = spacy.load("en_core_web_sm")
-# ============================
-# Load SpaCy & Globals
-# ============================
-nlp = en_core_web_sm.load()  # <--- Load the model this way for Streamlit Cloud
-stop_words = STOP_WORDS
 
+stop_words = STOP_WORDS
 # ============================
 # Feature Extractors
 # ============================
@@ -147,4 +145,3 @@ if uploaded_file:
         st.pyplot(plt)
 else:
     st.info("⬅️ Please upload a CSV file to start.")
-
