@@ -1,6 +1,7 @@
 # ============================================
 # 🌈 Streamlit NLP Phase-wise Model Comparison (NLTK Version)
 # ============================================
+#import nltk
 
 import streamlit as st
 import pandas as pd
@@ -23,6 +24,7 @@ import matplotlib.pyplot as plt
 # NLTK Setup
 # ============================
 nltk.download('punkt')
+nltk.download('punkt_tab') #adding this based on the error traceback
 nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('averaged_perceptron_tagger')
@@ -148,3 +150,4 @@ if uploaded_file:
         st.pyplot(plt)
 else:
     st.info("⬅️ Please upload a CSV file to start.")
+
