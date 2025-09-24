@@ -12,7 +12,8 @@ textblob
 # Machine Learning
 scikit-learn
 matplotlib
-en-core-web-sm
+
 
 # SpaCy English model (optional, can be downloaded via command)
 # python -m spacy download en_core_web_sm
+
