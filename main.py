@@ -28,6 +28,7 @@ nltk.download('punkt_tab') #adding this based on the error traceback
 nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('averaged_perceptron_tagger')
+nltk.download('averaged_perceptron_tagger_eng') #adding this to rectify perceptron import error
 
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
@@ -150,4 +151,5 @@ if uploaded_file:
         st.pyplot(plt)
 else:
     st.info("⬅️ Please upload a CSV file to start.")
+
 
