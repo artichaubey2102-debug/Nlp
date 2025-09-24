@@ -5,7 +5,6 @@
 import streamlit as st
 import pandas as pd
 import spacy
-import en_core_web_sm  # <--- Import the SpaCy model explicitly
 from spacy.lang.en.stop_words import STOP_WORDS
 from textblob import TextBlob
 from sklearn.model_selection import train_test_split
@@ -17,6 +16,13 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    # Download if not available
+    from spacy.cli import download
+    download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 # ============================
 # Load SpaCy & Globals
 # ============================
@@ -141,3 +147,4 @@ if uploaded_file:
         st.pyplot(plt)
 else:
     st.info("⬅️ Please upload a CSV file to start.")
+
