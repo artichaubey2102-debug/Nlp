@@ -14,6 +14,6 @@ scikit-learn
 matplotlib
 
 
-# SpaCy English model (optional, can be downloaded via command)
-# python -m spacy download en_core_web_sm
+
+
 
