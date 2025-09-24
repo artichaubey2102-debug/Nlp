@@ -5,6 +5,7 @@
 import streamlit as st
 import pandas as pd
 import spacy
+import en_core_web_sm  # <--- Import the SpaCy model explicitly
 from spacy.lang.en.stop_words import STOP_WORDS
 from textblob import TextBlob
 from sklearn.model_selection import train_test_split
@@ -19,7 +20,7 @@ import matplotlib.pyplot as plt
 # ============================
 # Load SpaCy & Globals
 # ============================
-nlp = spacy.load("en_core_web_sm")
+nlp = en_core_web_sm.load()  # <--- Load the model this way for Streamlit Cloud
 stop_words = STOP_WORDS
 
 # ============================
