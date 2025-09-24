@@ -4,7 +4,7 @@ streamlit
 # Data handling
 pandas
 numpy
-
+en-core-web-sm
 # NLP
 spacy
 textblob
@@ -15,4 +15,5 @@ matplotlib
 
 # SpaCy English model (optional, can be downloaded via command)
 # python -m spacy download en_core_web_sm
+
 
