@@ -1,17 +1,18 @@
 
-streamlit==1.29.0
+streamlit
 
 # Data handling
-pandas==2.1.1
-numpy==1.26.0
+pandas
+numpy
 
 # NLP
-spacy==3.6.1
-textblob==0.17.1
+spacy
+textblob
 
 # Machine Learning
-scikit-learn==1.3.2
-matplotlib==3.8.0
+scikit-learn
+matplotlib
 
 # SpaCy English model (optional, can be downloaded via command)
 # python -m spacy download en_core_web_sm
+
